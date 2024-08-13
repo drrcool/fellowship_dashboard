@@ -1,11 +1,7 @@
-import { createContext, useContext, useState } from "react";
 import dataset from "../data/dashboard_dataset.json";
 
-export type ProviderProps = {
-  children: React.ReactNode | React.ReactNode[];
-};
 type StringOrNull = string | null;
-type DataPoint = {
+export type DataPoint = {
   gender: StringOrNull;
   ethnicity: StringOrNull;
   age: StringOrNull;
@@ -35,37 +31,13 @@ type DataPoint = {
   country: StringOrNull;
   cma_region: StringOrNull;
 };
-type DataContextType = {
-  data: DataPoint[];
-  region: string;
-  setRegion: (region: string) => void;
-};
-const DataContext = createContext<DataContextType>({
-  data: [],
-  region: "Global",
-  setRegion: () => {},
-});
-
-export const DataProvider = ({ children }: ProviderProps) => {
-  const data = dataset as DataPoint[];
-  const [region, setRegion] = useState("Global");
-  return (
-    <DataContext.Provider value={{ data, region, setRegion }}>
-      {children}
-    </DataContext.Provider>
-  );
-};
 
 export const useData = () => {
-  const context = useContext(DataContext);
-  if (context === undefined) {
-    throw new Error("useData must be used within a DataProvider");
-  }
-  return context;
+  return dataset as DataPoint[];
 };
 
-export const useRegionData = () => {
-  const { data, region } = useData();
+export const useRegionData = (region: string) => {
+  const data = useData();
   if (region === "Global") {
     return data;
   }
@@ -73,7 +45,7 @@ export const useRegionData = () => {
 };
 
 export const useRegionList = () => {
-  const { data } = useData();
+  const data = useData();
   const regions = ["Global", ...data.map((d) => d.cma_region)];
   return Array.from(new Set(regions));
 };

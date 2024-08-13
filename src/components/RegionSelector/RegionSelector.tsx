@@ -1,13 +1,17 @@
-"use client";
-import { useData, useRegionList } from "@/utils/DataProvider";
+import { useRegionList } from "@/hooks/useData";
 import { SearchSelect, SearchSelectItem } from "@tremor/react";
 
-export const RegionSelector = () => {
-  const { region, setRegion } = useData();
+export const RegionSelector = ({
+  region,
+  setRegion,
+}: {
+  region: string;
+  setRegion: (region: string) => void;
+}) => {
   const regions = useRegionList().filter((r) => r !== null);
 
   return (
-    <div className="flex flex-row gap-2 justify-start items-center">
+    <div className="flex flex-col gap-2 justify-start ">
       <div>
         <p className="font-bold">Select a Region:</p>
       </div>
