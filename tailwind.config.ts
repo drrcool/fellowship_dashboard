@@ -1,6 +1,56 @@
 import type { Config } from "tailwindcss";
 import colors from "tailwindcss/colors";
 
+const colorList = [
+  "#16838d",
+  "#6d3be3",
+  "#4ab4dc",
+  "#f59f00",
+  "#db5b24",
+  "#e75094",
+  "#8b165d",
+  "#233371",
+  "#2172e3",
+  "#afe1e6",
+  "#bda1fd",
+  "#fbb698",
+  "#94c2ff",
+  "#f6c5db",
+  "#41b1ba",
+  "#a37efa",
+  "#69a8ff",
+  "#f2ab68",
+  "#ef7744",
+  "#f276ae",
+  "#792a95",
+  "#2c429c",
+  "#1376bf",
+  "#196f77",
+  "#4a2a96",
+  "#99421d",
+  "#1c4072",
+  "#6c1e41",
+];
+
+const colorLogic = (customColor: string) => [
+  `bg-${customColor}`,
+  `border-${customColor}`,
+  `hover:bg-${customColor}`,
+  `hover:border-${customColor}`,
+  `hover:text-${customColor}`,
+  `fill-${customColor}`,
+  `ring-${customColor}`,
+  `stroke-${customColor}`,
+  `text-${customColor}`,
+  `ui-selected:bg-${customColor}`,
+  `ui-selected:border-${customColor}`,
+  `ui-selected:text-${customColor}`,
+];
+
+const colorAddition = colorList
+  .map((color) => `[${color}]`)
+  .flatMap(colorLogic);
+
 const config: Config = {
   darkMode: "class",
   content: [
@@ -102,6 +152,8 @@ const config: Config = {
       },
     },
   },
+  safelist: [...colorAddition],
+
   plugins: [require("@headlessui/tailwindcss"), require("@tailwindcss/forms")],
 };
 export default config;
