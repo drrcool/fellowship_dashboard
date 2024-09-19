@@ -2,6 +2,7 @@ import { getColors } from "@/data/colors";
 import { DataPoint, useData, useRegionData } from "@/hooks/useData";
 import { Legend, DonutChart, Card } from "@tremor/react";
 import { ChartTitle } from "./utils/ChartTitle";
+import { allQuestions } from "@/config/questionConfig";
 
 export const groupDataBy = (data: DataPoint[], key: string) => {
   const filteredData = data.filter((d) => d[key as keyof DataPoint]);
@@ -39,8 +40,9 @@ export const SimpleDonutChart = ({
 }: {
   region: string;
   column: string;
-  title: string;
+  title?: string;
 }) => {
+  title = title ?? allQuestions.find((q) => q.value === column)?.label ?? "";
   const regionData = useRegionData(region);
   const fullData = useData();
 

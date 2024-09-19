@@ -1,5 +1,5 @@
 "use client";
-import { tabConfig } from "@/app/page";
+import { tabConfig } from "@/config/tabConfig";
 import { Tab, TabGroup, TabList } from "@tremor/react";
 export type TabConfig = {
   index: number;

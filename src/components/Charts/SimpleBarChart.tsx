@@ -1,12 +1,7 @@
-import { getColors } from "@/data/colors";
-import { DataPoint, useData, useRegionData } from "@/hooks/useData";
+import { DataPoint, useRegionData } from "@/hooks/useData";
 import { BarList, Card } from "@tremor/react";
-import {
-  groupDataBy,
-  intFormatter,
-  percentFormatter,
-} from "./SimpleDonutChart";
 import { ChartTitle } from "./utils/ChartTitle";
+import { allQuestions } from "@/config/questionConfig";
 
 export const barGroupBy = (data: DataPoint[], key: string) => {
   const filteredData = data.filter((d) => d[key as keyof DataPoint]);
@@ -40,14 +35,14 @@ const SimpleBarChart = ({
 }: {
   region: string;
   column: string;
-  title: string;
+  title?: string;
   subtitle?: string;
 }) => {
   const regionData = useRegionData(region);
-
   const regionFormattedData = barGroupBy(regionData, column).filter(
     (row) => row.name !== ""
   );
+  title = title ?? allQuestions.find((q) => q.value === column)?.label ?? "";
   return (
     <Card>
       <div className="mg-5 flex flex-col gap-5">

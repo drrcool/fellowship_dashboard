@@ -1,4 +1,3 @@
-import { ThemeProvider } from "@/utils/ThemeProvider";
 import { Header } from "./Header";
 const meta = {
   component: Header,
