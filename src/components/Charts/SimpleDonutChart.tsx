@@ -49,7 +49,6 @@ export const SimpleDonutChart = ({
   const regionFormattedData = groupDataBy(regionData, column);
   const fullFormattedData = groupDataBy(fullData, column);
 
-  console.log(regionFormattedData);
   const genderList = fullFormattedData.map((d) => d.name);
   const regionGenderList = regionFormattedData.map((d) => d.name);
 

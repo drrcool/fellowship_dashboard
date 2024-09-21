@@ -18,7 +18,6 @@ export const Tabs = ({
       <TabGroup
         index={currentTab.index}
         onIndexChange={(index) => {
-          console.log(index);
           setCurrentTab(tabConfig[index]);
         }}
       >

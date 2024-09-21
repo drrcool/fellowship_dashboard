@@ -11,10 +11,10 @@ export type DataPoint = {
   positively_affected: Array<StringOrNull>;
   current_meeting_attendance: StringOrNull;
   felt_welcomed: StringOrNull;
-  introduction_to_cma: StringOrNull;
+  introduction_to_cma: Array<StringOrNull>;
   education: StringOrNull;
   employment_status: StringOrNull;
-  months_years_clean: StringOrNull;
+  months_years_clean: Array<StringOrNull>;
   relapse_part_of_story: StringOrNull;
   twelve_step_sponsor: StringOrNull;
   currently_working_steps: StringOrNull;
