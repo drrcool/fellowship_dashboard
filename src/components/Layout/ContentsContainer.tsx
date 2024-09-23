@@ -11,5 +11,5 @@ export const TwoColumnContainer = ({
 }: {
   children: React.ReactNode | React.ReactNode[];
 }) => {
-  return <div className="grid grid-cols-2 gap-5">{children}</div>;
+  return <div className="grid md:grid-cols-2 gap-5">{children}</div>;
 };

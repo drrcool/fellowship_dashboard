@@ -13,8 +13,8 @@ export default function Home() {
   return (
     <div>
       <Header />
-      <div className="m-5">
-        <div className="flex justify-between ">
+      <div className="m-5 gap-5 flex flex-col">
+        <div className="flex justify-between flex-wrap gap-5">
           <RegionSelector region={region} setRegion={setRegion} />
           <SampleSizeCard region={region} />
         </div>
