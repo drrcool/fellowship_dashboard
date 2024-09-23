@@ -50,7 +50,7 @@ export const choiceQuestions = [
   {
     value: "cma_meetings_in_residential",
     label:
-      "Where CMA meetings available to you to attend in residential treatment?",
+      "Were CMA meetings available to you to attend in residential treatment?",
   },
   {
     value: "dei_feelings",
