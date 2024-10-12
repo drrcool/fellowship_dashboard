@@ -8,7 +8,17 @@ export const RegionSelector = ({
   region: string;
   setRegion: (region: string) => void;
 }) => {
-  const regions = useRegionList().filter((r) => r !== null);
+  const regions = useRegionList()
+    .filter((r) => r !== null)
+    .sort((a, b) => {
+      if (a === "Global") {
+        return -1;
+      }
+      if (b === "Global") {
+        return 1;
+      }
+      return a.localeCompare(b);
+    });
 
   return (
     <div className="flex flex-col gap-2 justify-start ">
