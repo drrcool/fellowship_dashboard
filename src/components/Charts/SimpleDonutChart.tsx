@@ -6,17 +6,14 @@ import { allQuestions } from "@/config/questionConfig";
 
 export const groupDataBy = (data: DataPoint[], key: string) => {
   const filteredData = data.filter((d) => d[key as keyof DataPoint]);
-  const groupedData = filteredData.reduce(
-    (acc, d) => {
-      const value = d[key as keyof DataPoint] as string;
-      if (!acc[value]) {
-        acc[value] = 0;
-      }
-      acc[value] += 1;
-      return acc;
-    },
-    {} as Record<string, number>
-  );
+  const groupedData = filteredData.reduce((acc, d) => {
+    const value = d[key as keyof DataPoint] as string;
+    if (!acc[value]) {
+      acc[value] = 0;
+    }
+    acc[value] += 1;
+    return acc;
+  }, {} as Record<string, number>);
   const total = Object.values(groupedData).reduce(
     (acc, value) => acc + value,
     0
@@ -24,6 +21,7 @@ export const groupDataBy = (data: DataPoint[], key: string) => {
   const list = Object.entries(groupedData)
     .map(([key, value]) => ({
       name: key,
+      count: value,
       value: (100.0 * value) / total,
     }))
     .sort((a, b) => a.name.localeCompare(b.name));

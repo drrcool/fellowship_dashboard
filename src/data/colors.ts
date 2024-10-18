@@ -31,9 +31,6 @@ export const chartColors = [
 
 export const getColors = (valueList: string[]) => {
   const n = valueList.length;
-  if (n > chartColors.length) {
-    throw new Error("Not enough colors");
-  }
   const colorList = {} as Record<string, string>;
   for (let i = 0; i < n; i++) {
     colorList[valueList[i]] = chartColors[i % chartColors.length];

@@ -8,6 +8,17 @@ export const QuestionSelector = ({
   question: string;
   setQuestion: (question: string) => void;
 }) => {
+  const LIST_QUESTIONS = [
+    "attending_other_fellowships",
+    "drugs_used",
+    "introduction_to_cma",
+    "months_years_clean",
+    "negatively_affected",
+    "positively_affected",
+  ];
+  const options = choiceQuestions.filter(
+    (q) => !LIST_QUESTIONS.includes(q.value)
+  );
   return (
     <div className="flex flex-col gap-2 justify-start">
       <div>
@@ -18,7 +29,7 @@ export const QuestionSelector = ({
           value={question}
           onValueChange={(value) => setQuestion(value)}
         >
-          {choiceQuestions.map((r) => (
+          {options.map((r) => (
             <SearchSelectItem key={r.value} value={r.value}>
               {r.label}
             </SearchSelectItem>

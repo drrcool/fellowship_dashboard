@@ -5,6 +5,7 @@ import {
   TwoColumnContainer,
 } from "../Layout/ContentsContainer";
 import { useState } from "react";
+import MosaicChart from "../Charts/MosaicChart";
 
 export const DataExplorer = ({ region }: { region: string }) => {
   // TODO : Build a filter bar
@@ -14,9 +15,8 @@ export const DataExplorer = ({ region }: { region: string }) => {
   const [question, setQuestion] = useState<string>(choiceQuestions[0].value);
   return (
     <ContentsContainer>
-      <TwoColumnContainer>
-        <QuestionSelector question={question} setQuestion={setQuestion} />
-      </TwoColumnContainer>
+      <QuestionSelector question={question} setQuestion={setQuestion} />
+      <MosaicChart column={question} />
     </ContentsContainer>
   );
 };
