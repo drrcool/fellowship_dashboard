@@ -13,7 +13,7 @@ export default function Home() {
   const Component = currentTab.component;
   return (
     <>
-      <div>
+      <div className="mx-10 my-5">
         <Header />
         <div className="m-5 gap-5 flex flex-col">
           <div className="flex justify-between flex-wrap gap-5">
