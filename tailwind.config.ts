@@ -154,6 +154,10 @@ const config: Config = {
   },
   safelist: [...colorAddition],
 
-  plugins: [require("@headlessui/tailwindcss"), require("@tailwindcss/forms")],
+  plugins: [
+    require("@headlessui/tailwindcss"),
+    require("@tailwindcss/forms"),
+    require("@tailwindcss/typography"),
+  ],
 };
 export default config;
