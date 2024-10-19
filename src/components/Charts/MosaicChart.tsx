@@ -3,6 +3,10 @@ import { groupDataBy } from "./SimpleDonutChart";
 import { BarChart } from "@mui/x-charts";
 import { getColors } from "@/data/colors";
 
+// TODO: Bring in logic that handles questions with multiple responses.
+// This is likely not a mosaic chart, so maybe we move this to the data explorer
+// component and build a new chart for this.
+
 const formatMultiRegionData = (data: any, column: string) => {
   const regionList: string[] = Array.from(
     new Set(data.map((d: any) => d.cma_region))

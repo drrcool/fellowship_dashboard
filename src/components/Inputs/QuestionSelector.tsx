@@ -16,6 +16,7 @@ export const QuestionSelector = ({
     "negatively_affected",
     "positively_affected",
   ];
+
   const options = choiceQuestions.filter(
     (q) => !LIST_QUESTIONS.includes(q.value)
   );
