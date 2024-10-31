@@ -4,21 +4,18 @@ import { BarList, Card } from "@tremor/react";
 import { ChartTitle } from "./utils/ChartTitle";
 import { sortFn } from "./SimpleBarChart";
 
-const groupListDataBy = (data: DataPoint[], key: string) => {
+export const groupListDataBy = (data: DataPoint[], key: string) => {
   const filteredData = data.filter((d) => d[key as keyof DataPoint]);
-  const groupedData = filteredData.reduce(
-    (acc, d) => {
-      const values = d[key as keyof DataPoint] as Array<string>;
-      values.forEach((value) => {
-        if (!acc[value]) {
-          acc[value] = 0;
-        }
-        acc[value] += 1;
-      });
-      return acc;
-    },
-    {} as Record<string, number>
-  );
+  const groupedData = filteredData.reduce((acc, d) => {
+    const values = d[key as keyof DataPoint] as Array<string>;
+    values.forEach((value) => {
+      if (!acc[value]) {
+        acc[value] = 0;
+      }
+      acc[value] += 1;
+    });
+    return acc;
+  }, {} as Record<string, number>);
   const total = Object.values(groupedData).reduce(
     (acc, value) => acc + value,
     0
