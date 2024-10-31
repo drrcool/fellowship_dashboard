@@ -61,9 +61,8 @@ export const MultiSelectMosaicChart = ({ column }: { column: string }) => {
       margin={{ left: 150, top: 150, right: 150 }}
       data={formattedData}
       colors={{
-        type: "quantize",
+        type: "diverging",
         scheme: "red_yellow_blue",
-        steps: 10,
       }}
       axisTop={{
         tickSize: 5,
