@@ -1,8 +1,8 @@
 import { useData } from "@/hooks/useData";
 import React from "react";
-import { HeatMap } from "@nivo/heatmap";
+import { ResponsiveHeatMap } from "@nivo/heatmap";
 import { groupListDataBy } from "./ListValueBarChart";
-
+import invert from "invert-color";
 const toTwoDecimals = (num: number) => Math.round(num * 100) / 100;
 export const groupAndFormatData = (
   data: any,
@@ -45,6 +45,13 @@ const formatMultiSelectData = (data: any, column: string) => {
   };
 };
 
+const labelTextColor = ({ color }: { color: string }) => {
+  // get RGB numbers from string
+  const colors: any = color.replace(/[^\d,]/g, "").split(",");
+
+  // true as param to get only black or white colors
+  return invert(colors, true);
+};
 export const MultiSelectMosaicChart = ({ column }: { column: string }) => {
   const fullData = useData();
   const {
@@ -55,22 +62,26 @@ export const MultiSelectMosaicChart = ({ column }: { column: string }) => {
   console.log(formattedData);
 
   return (
-    <HeatMap
-      width={1200}
-      height={800}
-      margin={{ left: 150, top: 150, right: 150 }}
-      data={formattedData}
-      colors={{
-        type: "diverging",
-        scheme: "red_yellow_blue",
-      }}
-      axisTop={{
-        tickSize: 5,
-        tickPadding: 5,
-        tickRotation: -45,
-        legend: "",
-        legendOffset: 46,
-      }}
-    />
+    <div style={{ height: "800px" }}>
+      <ResponsiveHeatMap
+        labelTextColor={labelTextColor}
+        margin={{ left: 150, top: 150, right: 150 }}
+        data={formattedData}
+        colors={{
+          type: "sequential",
+          scheme: "purple_blue",
+        }}
+        axisLeft={{
+          tickSize: 1,
+        }}
+        axisTop={{
+          tickSize: 1,
+          tickPadding: 5,
+          tickRotation: -45,
+          legend: "",
+          legendOffset: 46,
+        }}
+      />
+    </div>
   );
 };
