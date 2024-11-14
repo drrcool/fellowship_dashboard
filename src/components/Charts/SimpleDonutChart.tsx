@@ -5,7 +5,23 @@ import { ChartTitle } from "./utils/ChartTitle";
 import { allQuestions } from "@/config/questionConfig";
 
 export const groupDataBy = (data: DataPoint[], key: string) => {
-  const filteredData = data.filter((d) => d[key as keyof DataPoint]);
+  let filteredData = data.filter((d) => d[key as keyof DataPoint]);
+  // TODO: Add a filter on filterValue here.
+  // Check allQuestions to figure out if this needs it, and if it does, limit the
+  // data to those that responded accordingly.
+  const questionConfig = allQuestions.find((q) => q.value === key);
+  const isFilteredQuestion = questionConfig?.valueLimit;
+  if (isFilteredQuestion) {
+    console.log(key);
+    console.log(filteredData.length);
+    const { question, value } = isFilteredQuestion;
+    filteredData = filteredData.filter(
+      (d) => d[question as keyof DataPoint] === value
+    );
+    console.log(filteredData.length);
+    console.log(filteredData.map((d) => d[question as keyof DataPoint]));
+  }
+
   const groupedData = filteredData.reduce((acc, d) => {
     const value = d[key as keyof DataPoint] as string;
     if (!acc[value]) {

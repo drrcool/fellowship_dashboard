@@ -1,4 +1,9 @@
-export const choiceQuestions = [
+type QuestionConfig = {
+  value: string;
+  label: string;
+  valueLimit?: { question: string; value: string };
+};
+export const choiceQuestions: QuestionConfig[] = [
   { value: "gender", label: "How do you identify your gender?" },
   { value: "ethnicity", label: "What is your ethnicity?" },
   { value: "age", label: "what is your age?" },
@@ -42,6 +47,7 @@ export const choiceQuestions = [
   {
     value: "access_to_meetings_incarcerated",
     label: "Did you have access to 12 step meetings while incarcerated?",
+    valueLimit: { question: "ever_been_incarcerated", value: "Yes" },
   },
   {
     value: "residential_treatment_experience",
@@ -51,6 +57,7 @@ export const choiceQuestions = [
     value: "cma_meetings_in_residential",
     label:
       "Were CMA meetings available to you to attend in residential treatment?",
+    valueLimit: { question: "residential_treatment_experience", value: "Yes" },
   },
   {
     value: "dei_feelings",
@@ -69,7 +76,7 @@ export const dimensions = [
   { value: "region", label: "State" },
 ];
 
-export const freeformQuestions = [
+export const freeformQuestions: QuestionConfig[] = [
   {
     value: "dei_freeform",
     label: "Feelings about CMA being diverse, equitable, and inclusive",
