@@ -15,7 +15,6 @@ function convertQuoteToItalicQuotes(text: string): string {
 }
 
 const getMarkdown = (text: string) => {
-  console.log(convertQuoteToItalicQuotes(text));
   const markdown = marked.parse(convertQuoteToItalicQuotes(text));
   return { __html: markdown };
 };
@@ -29,7 +28,6 @@ export const SummarizedResponses = ({
 }) => {
   const data = question === "dei" ? deiResponses : seeMoreResponses;
   const summary = data.find((d) => d.region === region);
-  console.log(summary);
   const FallBack = () => {
     return <div>No summary found for this region.</div>;
   };
@@ -37,7 +35,6 @@ export const SummarizedResponses = ({
   const subTitle = freeformQuestions.find(
     (q) => q.value === questionName
   )?.label;
-  console.log(subTitle);
   return (
     <Card>
       <ChartTitle

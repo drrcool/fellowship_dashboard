@@ -59,7 +59,6 @@ export const MultiSelectMosaicChart = ({ column }: { column: string }) => {
     responseList,
     regionList,
   } = formatMultiSelectData(fullData, column);
-  console.log(formattedData);
 
   return (
     <div style={{ height: "800px" }}>
