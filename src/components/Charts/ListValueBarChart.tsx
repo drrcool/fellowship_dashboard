@@ -16,11 +16,7 @@ export const groupListDataBy = (data: DataPoint[], key: string) => {
     });
     return acc;
   }, {} as Record<string, number>);
-  const total = Object.values(groupedData).reduce(
-    (acc, value) => acc + value,
-    0
-  );
-  console.log(sortFn(key));
+  const total = filteredData.length;
   const list = Object.entries(groupedData)
     .map(([key, value]) => ({
       name: key,

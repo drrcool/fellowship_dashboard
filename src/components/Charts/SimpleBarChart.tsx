@@ -55,11 +55,7 @@ export const barGroupBy = (data: DataPoint[], key: string) => {
     acc[value] += 1;
     return acc;
   }, {} as Record<string, number>);
-  const total = Object.values(groupedData).reduce(
-    (acc, value) => acc + value,
-    0
-  );
-
+  const total = filteredData.length;
   const list = Object.entries(groupedData)
     .map(([key, value]) => ({
       name: key,
