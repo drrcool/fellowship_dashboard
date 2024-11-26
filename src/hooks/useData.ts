@@ -30,6 +30,7 @@ export type DataPoint = {
   region: StringOrNull;
   country: StringOrNull;
   cma_region: StringOrNull;
+  state: StringOrNull;
 };
 
 export const useData = () => {
@@ -41,11 +42,22 @@ export const useRegionData = (region: string) => {
   if (region === "Global") {
     return data;
   }
-  return data.filter((d) => d.cma_region === region);
+  return data.filter((d) => d.cma_region === region || d.state === region);
 };
 
 export const useRegionList = () => {
   const data = useData();
-  const regions = ["Global", ...data.map((d) => d.cma_region)];
-  return Array.from(new Set(regions));
+  const global_region = { value: "Global", region: "Global" };
+  const regions: { value: string; region: string }[] = [];
+
+  const states: { value: string; region: string }[] = [];
+  data.forEach((d) => {
+    if (d.state && d.cma_region && !states.find((r) => r.value == d.state)) {
+      states.push({ value: d.state, region: d.cma_region });
+    }
+    if (d.cma_region && !regions.find((r) => r.value == d.cma_region)) {
+      regions.push({ value: d.cma_region, region: d.cma_region });
+    }
+  });
+  return [global_region, ...regions, ...states];
 };
