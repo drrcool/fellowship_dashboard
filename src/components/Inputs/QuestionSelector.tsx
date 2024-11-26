@@ -1,29 +1,35 @@
-import { choiceQuestions } from "@/config/questionConfig";
-import { SearchSelect, SearchSelectItem } from "@tremor/react";
+import { choiceQuestions, QuestionConfig } from "@/config/questionConfig";
+import { MenuItem, Select } from "@mui/material";
 
 export const QuestionSelector = ({
   question,
   setQuestion,
+  additionalQuestions,
 }: {
   question: string;
   setQuestion: (question: string) => void;
+  additionalQuestions?: QuestionConfig[];
 }) => {
+  const questions = additionalQuestions
+    ? [...additionalQuestions, ...choiceQuestions]
+    : choiceQuestions;
   return (
     <div className="flex flex-col gap-2 justify-start">
       <div>
         <p className="font-bold">Select a Question:</p>
       </div>
       <div>
-        <SearchSelect
+        <Select
           value={question}
-          onValueChange={(value) => setQuestion(value)}
+          onChange={(value) => setQuestion(value.target.value)}
+          style={{ width: "100%" }}
         >
-          {choiceQuestions.map((r) => (
-            <SearchSelectItem key={r.value} value={r.value}>
+          {questions.map((r) => (
+            <MenuItem key={r.value} value={r.value}>
               {r.label}
-            </SearchSelectItem>
+            </MenuItem>
           ))}
-        </SearchSelect>
+        </Select>
       </div>
     </div>
   );

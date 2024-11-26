@@ -1,4 +1,4 @@
-type QuestionConfig = {
+export type QuestionConfig = {
   value: string;
   label: string;
   valueLimit?: { question: string; value: string };
@@ -86,5 +86,10 @@ export const freeformQuestions: QuestionConfig[] = [
     label: "What would you like to see more of in CMA?",
   },
 ];
+
+export const responseQuestion: QuestionConfig = {
+  value: "response_rate",
+  label: "Response Count",
+};
 
 export const allQuestions = [...choiceQuestions, ...freeformQuestions];

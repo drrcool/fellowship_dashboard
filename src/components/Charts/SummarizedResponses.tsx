@@ -29,7 +29,12 @@ export const SummarizedResponses = ({
   const data = question === "dei" ? deiResponses : seeMoreResponses;
   const summary = data.find((d) => d.region === region);
   const FallBack = () => {
-    return <div>No summary found for this region.</div>;
+    return (
+      <div>
+        No summary found for this region. Summaries are only available at the
+        region-level and not at state.
+      </div>
+    );
   };
   const questionName = question === "dei" ? "dei_freeform" : "what_see_more";
   const subTitle = freeformQuestions.find(

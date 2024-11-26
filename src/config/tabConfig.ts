@@ -5,6 +5,7 @@ import { HospitalsAndInstitutions } from "@/components/Tabs/HospitalsAndInstitut
 import { Diversity } from "@/components/Tabs/Diversity";
 import { DataExplorer } from "@/components/Tabs/DataExplorer";
 import { SeeMore } from "@/components/Tabs/SeeMore";
+import { MapTesting } from "@/components/Tabs/MapTesting";
 
 export const tabConfig: Record<string, TabConfig> = {
   0: { index: 0, label: "Demographics", component: Demographics },
@@ -32,5 +33,10 @@ export const tabConfig: Record<string, TabConfig> = {
     index: 5,
     label: "Regional Comparisons",
     component: DataExplorer,
+  },
+  6: {
+    index: 6,
+    label: "Map Testing",
+    component: MapTesting,
   },
 };
