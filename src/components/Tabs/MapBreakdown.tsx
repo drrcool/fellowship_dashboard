@@ -8,7 +8,7 @@ import {
 import { useState } from "react";
 import { ResponseSelector } from "../Inputs/ResponseSelector";
 
-export const MapTesting = () => {
+export const MapBreakdown = () => {
   const [question, setQuestion] = useState<string>("response_rate");
   const [responses, setResponses] = useState<string[]>([]);
   const updateQuestion = (question: string) => {

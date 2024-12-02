@@ -22,7 +22,7 @@ const getResponseData = (data: DataPoint[]) => {
     };
     return acc;
   }, {} as Record<string, { rate: number | null; population: number; count: number | null }>);
-  return { values: output, maxValue };
+  return { values: output, maxValue, minValue: 0 };
 };
 
 const getSurveyData = (
@@ -30,6 +30,7 @@ const getSurveyData = (
   question: string,
   responses: string[]
 ) => {
+  const MIN_RESPONSES_TO_CONSIDER_FOR_SCALE = 10;
   const values = data
     .map((d) => {
       if (d.state) {
@@ -56,8 +57,12 @@ const getSurveyData = (
     };
     return acc;
   }, {} as Record<string, { count: number; population: number; rate: number }>);
-  const maxValue = Math.max(...Object.values(outputValues).map((v) => v.rate));
-  return { values: outputValues, maxValue };
+  const valuesWithinRange = Object.values(outputValues)
+    .filter((v) => v.population >= MIN_RESPONSES_TO_CONSIDER_FOR_SCALE)
+    .map((v) => v.rate);
+  const maxValue = Math.max(...valuesWithinRange);
+  const minValue = Math.min(...valuesWithinRange);
+  return { values: outputValues, maxValue, minValue };
 };
 
 const getQuestionData = (
@@ -101,8 +106,12 @@ export const NorthAmericaChart = ({
   responses: string[];
 }) => {
   const data = useData();
-  const { values, maxValue } = getQuestionData(data, question, responses);
-  const colorScale = scaleLinear([0, maxValue], ["white", "purple"]);
+  const { values, maxValue, minValue } = getQuestionData(
+    data,
+    question,
+    responses
+  );
+  const colorScale = scaleLinear([minValue, maxValue], ["white", "purple"]);
   const [content, setContent] = useState<ReactNode>(<></>);
 
   return (
@@ -122,15 +131,22 @@ export const NorthAmericaChart = ({
                 rate: null,
                 population: 0,
               };
+              const colorValue =
+                question === "response_rate"
+                  ? value.population
+                  : value.rate != null && value.rate < minValue
+                  ? minValue
+                  : value.rate != null && value.rate > maxValue
+                  ? maxValue
+                  : value.rate;
+
+              const fillColor =
+                colorValue !== null ? colorScale(colorValue) : "grey";
               return (
                 <a data-tooltip-id="geo-tooltip" key={geo.rsmKey}>
                   <Geography
                     geography={geo}
-                    fill={colorScale(
-                      question === "response_rate"
-                        ? value.population ?? 0
-                        : value.rate ?? 0
-                    )}
+                    fill={fillColor}
                     stroke="black"
                     onMouseEnter={() => {
                       console.log(geo.properties.name);
