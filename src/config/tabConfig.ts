@@ -36,7 +36,7 @@ export const tabConfig: Record<string, TabConfig> = {
   },
   6: {
     index: 6,
-    label: "State/Provence Map",
+    label: "State/Province Map",
     component: MapBreakdown,
   },
 };
