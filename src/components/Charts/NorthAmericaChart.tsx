@@ -5,6 +5,7 @@ import usCanadaGeo from "../../data/usacanadageojson.json";
 import { DataPoint, useData } from "@/hooks/useData";
 import { ReactNode, useState } from "react";
 import "react-tooltip/dist/react-tooltip.css";
+import { allQuestions } from "@/config/questionConfig";
 
 const getResponseData = (data: DataPoint[]) => {
   const values = data.reduce((acc, d) => {
@@ -31,7 +32,17 @@ const getSurveyData = (
   responses: string[]
 ) => {
   const MIN_RESPONSES_TO_CONSIDER_FOR_SCALE = 10;
-  const values = data
+  let filteredData = data.filter((d) => d[question as keyof DataPoint]);
+  const questionConfig = allQuestions.find((q) => q.value === question);
+  const isFilteredQuestion = questionConfig?.valueLimit;
+  if (isFilteredQuestion) {
+    const { question, value } = isFilteredQuestion;
+    filteredData = filteredData.filter(
+      (d) => d[question as keyof DataPoint] === value
+    );
+  }
+
+  const values = filteredData
     .map((d) => {
       if (d.state) {
         const response = d[question as keyof typeof d] as string;
@@ -65,7 +76,7 @@ const getSurveyData = (
   return { values: outputValues, maxValue, minValue };
 };
 
-const getQuestionData = (
+export const getQuestionData = (
   data: DataPoint[],
   question: string,
   responses: string[]

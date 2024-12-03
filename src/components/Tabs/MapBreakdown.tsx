@@ -7,6 +7,8 @@ import {
 } from "../Layout/ContentsContainer";
 import { useState } from "react";
 import { ResponseSelector } from "../Inputs/ResponseSelector";
+import { ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { TableView } from "../Charts/TableView";
 
 export const MapBreakdown = () => {
   const [question, setQuestion] = useState<string>("response_rate");
@@ -15,8 +17,23 @@ export const MapBreakdown = () => {
     setResponses([]);
     setQuestion(question);
   };
+  const [showTable, setShowTable] = useState<boolean>(false);
+  console.log(showTable);
   return (
     <ContentsContainer>
+      <div>
+        <ToggleButtonGroup
+          value={showTable}
+          exclusive
+          onChange={(_, value) => {
+            console.log(value);
+            if (value !== null) setShowTable(value);
+          }}
+        >
+          <ToggleButton value={false}>Map</ToggleButton>
+          <ToggleButton value={true}>Table</ToggleButton>
+        </ToggleButtonGroup>
+      </div>
       <TwoColumnContainer>
         <QuestionSelector
           question={question}
@@ -29,7 +46,13 @@ export const MapBreakdown = () => {
           setResponses={setResponses}
         />
       </TwoColumnContainer>
-      <NorthAmericaChart question={question} responses={responses} />
+      {showTable ? (
+        <div className="flex items-center justify-center">
+          <TableView question={question} responses={responses} />
+        </div>
+      ) : (
+        <NorthAmericaChart question={question} responses={responses} />
+      )}
     </ContentsContainer>
   );
 };
