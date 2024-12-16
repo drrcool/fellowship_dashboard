@@ -27,7 +27,7 @@ export const SummarizedResponses = ({
   question: "dei" | "seeMore";
 }) => {
   const data = question === "dei" ? deiResponses : seeMoreResponses;
-  const summary = data.find((d) => d.region === region);
+  const summary = data.find((d) => d.region === region || d.state === region);
   const FallBack = () => {
     return (
       <div>
