@@ -28,7 +28,7 @@ export const RegionSelector = ({
   return (
     <div className="flex flex-col gap-2 justify-start ">
       <div>
-        <p className="font-bold">Select a Region:</p>
+        <p className="font-bold">Select a Region/State/Province:</p>
       </div>
       <div>
         <SearchSelect
