@@ -45,7 +45,7 @@ export const SummarizedResponses = ({
       <ChartTitle
         title={subTitle ?? ""}
         subtitle={
-          "Summary of responses.  Italicized text indicates direct quotes. A full list of responses can be found at the bottom of the page."
+          "AI-generated summary of responses.  Italicized text indicates direct quotes. A full list of responses can be found at the bottom of the page. "
         }
       />
       <div className="markdown-body">
