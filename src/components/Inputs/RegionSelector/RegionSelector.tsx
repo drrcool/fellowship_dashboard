@@ -1,6 +1,6 @@
 import { useRegionList } from "@/hooks/useData";
 import { SearchSelect, SearchSelectItem } from "@tremor/react";
-import { M_PLUS_1 } from "next/font/google";
+import { useState } from "react";
 
 export const RegionSelector = ({
   region,
@@ -9,6 +9,7 @@ export const RegionSelector = ({
   region: string;
   setRegion: (region: string) => void;
 }) => {
+  const [searchValue, setSearchValue] = useState<string>("");
   const raw_regions = useRegionList();
   const regions = raw_regions.sort((a, b) => {
     if (a.value === "Global") {
@@ -34,6 +35,8 @@ export const RegionSelector = ({
         <SearchSelect
           value={region}
           onValueChange={(value) => setRegion(value)}
+          searchValue={searchValue}
+          onSearchValueChange={(value) => setSearchValue(value)}
         >
           {regions.map((r) => (
             <SearchSelectItem key={r.value} value={r.value}>
