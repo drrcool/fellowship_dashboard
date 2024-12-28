@@ -6,6 +6,7 @@ import { RegionSelector } from "@/components/Inputs/RegionSelector/RegionSelecto
 import { tabConfig } from "@/config/tabConfig";
 import { useContext, useState } from "react";
 import { RegionContext } from "@/components/Contexts/RegionContext";
+import { Footer } from "@/components/Footer/Footer";
 
 export default function App() {
   const { region, setRegion } = useContext(RegionContext);
@@ -23,6 +24,7 @@ export default function App() {
           <Tabs currentTab={currentTab} setCurrentTab={setCurrentTab} />
           <Component region={region} />
         </div>
+        <Footer />
       </div>
     </>
   );

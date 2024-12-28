@@ -7,3 +7,20 @@
   @apply prose-lg;
   max-width: 90%;
 }
+a {
+  color: blue;
+  text-decoration: none;
+}
+
+a:hover {
+  color: darkblue; /* Change color on hover */
+  text-decoration: underline; /* Add underline on hover */
+}
+
+a:active {
+  color: red; /* Change color when active (clicked) */
+}
+
+a:visited {
+  color: purple; /* Change color after the link is visited */
+}
