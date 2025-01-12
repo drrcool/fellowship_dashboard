@@ -32,6 +32,7 @@ const getSurveyData = (
   responses: string[]
 ) => {
   const MIN_RESPONSES_TO_CONSIDER_FOR_SCALE = 10;
+  const MIN_RESPONSES_TO_ADD_TO_DATASSET = 5
   let filteredData = data.filter((d) => d[question as keyof DataPoint]);
   const questionConfig = allQuestions.find((q) => q.value === question);
   const isFilteredQuestion = questionConfig?.valueLimit;
@@ -52,7 +53,7 @@ const getSurveyData = (
         return { state: d.state, matches, population: 1 };
       }
     })
-    .filter((d) => d !== undefined);
+    .filter((d) => d !== undefined)
   const outputValues = values.reduce((acc, { state, matches, population }) => {
     const matchValue = matches ? 1 : 0;
     const newMatchCount = acc[state]
@@ -67,13 +68,20 @@ const getSurveyData = (
       rate: newPopulation > 0 ? (1.0 * newMatchCount) / newPopulation : 0,
     };
     return acc;
-  }, {} as Record<string, { count: number; population: number; rate: number }>);
-  const valuesWithinRange = Object.values(outputValues)
+  }, {} as Record<string, { count: number; population: number; rate: number }>)
+
+  const trimmedValues = Object.keys(outputValues).reduce((acc, key) => {
+    if (outputValues[key].population >= MIN_RESPONSES_TO_ADD_TO_DATASSET){
+      acc[key] = outputValues[key]
+    }
+    return acc
+  }, {} as Record<string, { count: number; population: number; rate: number }>)
+  const valuesWithinRange = Object.values(trimmedValues)
     .filter((v) => v.population >= MIN_RESPONSES_TO_CONSIDER_FOR_SCALE)
     .map((v) => v.rate);
   const maxValue = Math.max(...valuesWithinRange);
   const minValue = Math.min(...valuesWithinRange);
-  return { values: outputValues, maxValue, minValue };
+  return { values: trimmedValues, maxValue, minValue };
 };
 
 export const getQuestionData = (
