@@ -17,8 +17,7 @@ export const MapBreakdown = () => {
     setResponses([]);
     setQuestion(question);
   };
-  const [showTable, setShowTable] = useState<boolean>(false);
-  console.log(showTable);
+  const [showTable, setShowTable] = useState<boolean>(true);
   return (
     <ContentsContainer>
       <div>
@@ -46,6 +45,11 @@ export const MapBreakdown = () => {
           setResponses={setResponses}
         />
       </TwoColumnContainer>
+        {question === "response_rate" ? null :
+        <div className={"text-sm italic"}>
+            Please note: in order to maintain respondent anonymity, we only provide state/province breakdowns if there were five or more responses.
+        </div>
+        }
       {showTable ? (
         <div className="flex items-center justify-center">
           <TableView question={question} responses={responses} />

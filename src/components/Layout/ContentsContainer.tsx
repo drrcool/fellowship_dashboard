@@ -3,7 +3,7 @@ export const ContentsContainer = ({
 }: {
   children: React.ReactNode | React.ReactNode[];
 }) => {
-  return <div className="my-10 flex flex-col gap-5">{children}</div>;
+  return <div className="my-5 flex flex-col gap-3">{children}</div>;
 };
 
 export const TwoColumnContainer = ({

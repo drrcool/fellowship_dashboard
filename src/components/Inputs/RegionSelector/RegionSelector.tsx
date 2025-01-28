@@ -1,4 +1,4 @@
-import { useRegionList } from "@/hooks/useData";
+import {useRegionCounts, useRegionList} from "@/hooks/useData";
 import { SearchSelect, SearchSelectItem } from "@tremor/react";
 import { useState } from "react";
 
@@ -11,6 +11,7 @@ export const RegionSelector = ({
 }) => {
   const [searchValue, setSearchValue] = useState<string>("");
   const raw_regions = useRegionList();
+  const regionCounts = useRegionCounts();
   const regions = raw_regions.sort((a, b) => {
     if (a.value === "Global") {
       return -1;
@@ -24,8 +25,13 @@ export const RegionSelector = ({
       return a.value.localeCompare(b.value);
     }
     return a.region.localeCompare(b.region);
-  });
+  }).filter((region) => {
+    console.log(regionCounts[region.value])
+    const compValue = regionCounts[region.value] ?? 0
+    return compValue >= 5
+  })
 
+  console.log(regionCounts)
   return (
     <div className="flex flex-col gap-2 justify-start ">
       <div>
@@ -46,6 +52,9 @@ export const RegionSelector = ({
             </SearchSelectItem>
           ))}
         </SearchSelect>
+      </div>
+      <div className={"text-sm italic"}>
+        Only states/provinces with 5 or more responses are available for detailed breakdowns.
       </div>
     </div>
   );

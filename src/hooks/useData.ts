@@ -48,12 +48,12 @@ export const useRegionData = (region: string) => {
 export const useRegionList = () => {
   const data = useData();
   const global_region = { value: "Global", region: "Global" };
-  const regions: { value: string; region: string }[] = [];
+  const regions: { value: string; region: string}[] = [];
 
   const states: { value: string; region: string }[] = [];
   data.forEach((d) => {
     if (d.state && d.cma_region && !states.find((r) => r.value == d.state)) {
-      states.push({ value: d.state, region: d.cma_region });
+      states.push({ value: d.state, region: d.cma_region});
     }
     if (d.cma_region && !regions.find((r) => r.value == d.cma_region)) {
       regions.push({ value: d.cma_region, region: d.cma_region });
@@ -61,3 +61,18 @@ export const useRegionList = () => {
   });
   return [global_region, ...regions, ...states];
 };
+
+export const useRegionCounts = () => {
+  const regionList = useRegionList();
+  const data = useData()
+  const regionCounts: Record<string, number> = {}
+
+  regionList.forEach((d) => {
+    const matchLogic = (d.value === "Global") ? () => true :
+      (row: DataPoint) => (row.state === d.value) || (row.cma_region === d.value)
+
+    regionCounts[d.value] = data.filter((row) => matchLogic(row)).length
+  })
+
+  return regionCounts;
+}
