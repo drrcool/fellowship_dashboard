@@ -5,7 +5,10 @@ import { TabConfig, Tabs } from "@/components/Header/Tabs";
 import { RegionSelector } from "@/components/Inputs/RegionSelector/RegionSelector";
 import { tabConfig } from "@/config/tabConfig";
 import { useContext, useState } from "react";
-import { RegionContext } from "@/components/Contexts/RegionContext";
+import {
+  RegionContext,
+  RegionContextProvider,
+} from "@/components/Contexts/RegionContext";
 import { Footer } from "@/components/Footer/Footer";
 
 export default function App() {
@@ -13,7 +16,7 @@ export default function App() {
   const [currentTab, setCurrentTab] = useState<TabConfig>(tabConfig[0]);
   const Component = currentTab.component;
   return (
-    <>
+    <RegionContextProvider>
       <div className="mx-10 my-5">
         <Header />
         <div className="m-5 gap-5 flex flex-col">
@@ -26,6 +29,6 @@ export default function App() {
         </div>
         <Footer />
       </div>
-    </>
+    </RegionContextProvider>
   );
 }
