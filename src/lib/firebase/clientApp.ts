@@ -7,6 +7,7 @@ import { getStorage } from "firebase/storage";
 
 // Use automatic initialization
 // https://firebase.google.com/docs/app-hosting/firebase-sdks#initialize-with-no-arguments
+console.log(config);
 export const firebaseApp = initializeApp(config);
 
 export const auth = getAuth(firebaseApp);
